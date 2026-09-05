@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NEXUS | Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <span>◆</span>
+            <b>NEXUS</b>
+        </div>
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                data-section="dashboard"
+            >
+                <span>🏠</span>
+                <label>Dashboard</label>
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="tasks"
+            >
+                <span>✅</span>
+                <label>Tasks</label>
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="focus"
+            >
+                <span>⏱️</span>
+                <label>Focus</label>
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="notes"
+            >
+                <span>📝</span>
+                <label>Notes</label>
+            </button>
+
+            <button
+                class="nav-item"
+                data-section="progress"
+            >
+                <span>📊</span>
+                <label>Progress</label>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="level-row">
+                <span>LEVEL</span>
+                <strong id="sideLevel">1</strong>
+            </div>
+
+            <div class="xp-bar">
+                <div
+                    class="xp-progress"
+                    id="sideXp"
+                ></div>
+            </div>
+
+            <small>
+                <span id="sideXpText">0</span> / 100 XP
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="small-text">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Ready to lock in,
+                    <span id="welcomeName">
+                        Student
+                    </span>? 🚀
+                </h1>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div
+                    class="avatar"
+                    id="avatar"
+                >
+                    S
+                </div>
+
+                <div>
+
+                    <strong id="profileName">
+                        Student
+                    </strong>
+
+                    <small>
+                        Level
+                        <span id="profileLevel">
+                            1
+                        </span>
+                    </small>
+
+                </div>
+
+                <button
+                    class="logout-btn"
+                    onclick="logout()"
+                >
+                    ↪
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section
+            id="dashboard"
+            class="page active-page"
+        >
+
+            <!-- STATS -->
+
+            <section class="stats">
+
+                <div class="stat-card">
+
+                    <span>🔥</span>
+
+                    <div>
+                        <p>Current Streak</p>
+                        <h2 id="streak">
+                            0 Days
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>✅</span>
+
+                    <div>
+                        <p>Tasks Completed</p>
+
+                        <h2 id="completedCount">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>⏱️</span>
+
+                    <div>
+                        <p>Focus Time</p>
+
+                        <h2 id="focusTime">
+                            0m
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span>⭐</span>
+
+                    <div>
+                        <p>Total XP</p>
+
+                        <h2 id="totalXp">
+                            0
+                        </h2>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DASHBOARD GRID -->
+
+            <section class="dashboard-grid">
+
+                <!-- TASKS -->
+
+                <div class="card tasks-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <p class="small-text">
+                                TODAY
+                            </p>
+
+                            <h2>
+                                Your Tasks
+                            </h2>
+
+                        </div>
+
+                        <button
+                            class="add-btn"
+                            onclick="openTaskModal()"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="dashboardTasks"
+                        class="tasks"
+                    ></div>
+
+                </div>
+
+
+                <!-- FOCUS -->
+
+                <div class="card focus-card">
+
+                    <p class="small-text">
+                        FOCUS SESSION
+                    </p>
+
+                    <h2>
+                        Ready to focus?
+                    </h2>
+
+                    <div
+                        class="timer"
+                        id="dashboardTimer"
+                    >
+                        25:00
+                    </div>
+
+                    <button
+                        class="start-btn"
+                        onclick="startFocus()"
+                    >
+                        START FOCUS
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- QUICK NOTES -->
+
+            <div class="card notes-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <p class="small-text">
+                            QUICK NOTES
+                        </p>
+
+                        <h2>
+                            Brain Dump
+                        </h2>
+
+                    </div>
+
+                    <span class="note-icon">
+                        💡
+                    </span>
+
+                </div>
+
+                <textarea
+                    id="quickNotes"
+                    placeholder="Write anything here..."
+                ></textarea>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TASKS ================= -->
+
+        <section
+            id="tasks"
+            class="page"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        PRODUCTIVITY
+                    </p>
+
+                    <h1>
+                        Task Manager
+                    </h1>
+
+                </div>
+
+                <button
+                    class="primary-btn"
+                    onclick="openTaskModal()"
+                >
+                    + Add Task
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div
+                    id="allTasks"
+                    class="all-tasks"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOCUS ================= -->
+
+        <section
+            id="focus"
+            class="page"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        DEEP WORK
+                    </p>
+
+                    <h1>
+                        Focus Mode
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="focus-container">
+
+                <div class="card big-focus">
+
+                    <p class="small-text">
+                        POMODORO TIMER
+                    </p>
+
+                    <div
+                        class="big-timer"
+                        id="bigTimer"
+                    >
+                        25:00
+                    </div>
+
+
+                    <div class="timer-controls">
+
+                        <button
+                            class="primary-btn"
+                            onclick="startFocus()"
+                        >
+                            START
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="pauseFocus()"
+                        >
+                            PAUSE
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="resetFocus()"
+                        >
+                            RESET
+                        </button>
+
+                    </div>
+
+
+                    <p
+                        class="focus-status"
+                        id="focusStatus"
+                    >
+                        Ready when you are.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= NOTES ================= -->
+
+        <section
+            id="notes"
+            class="page"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        THINKING SPACE
+                    </p>
+
+                    <h1>
+                        My Notes
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="card full-notes">
+
+                <textarea
+                    id="mainNotes"
+                    placeholder="Write your thoughts, ideas, reminders or study notes..."
+                ></textarea>
+
+
+                <button
+                    class="primary-btn"
+                    onclick="saveNotes()"
+                >
+                    Save Notes
+                </button>
+
+
+                <p
+                    id="notesSaved"
+                    class="saved-message"
+                ></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PROGRESS ================= -->
+
+        <section
+            id="progress"
+            class="page"
+        >
+
+            <div class="page-title">
+
+                <div>
+
+                    <p class="small-text">
+                        YOUR JOURNEY
+                    </p>
+
+                    <h1>
+                        Progress
+                    </h1>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-grid">
+
+                <div class="card progress-card">
+
+                    <div
+                        class="progress-circle"
+                        id="progressCircle"
+                    >
+
+                        <div>
+
+                            <strong
+                                id="progressPercent"
+                            >
+                                0%
+                            </strong>
+
+                            <small>
+                                COMPLETE
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <h2>
+                        Overall Progress
+                    </h2>
+
+                    <p>
+                        Keep completing tasks to
+                        increase your progress.
+                    </p>
+
+                </div>
+
+
+                <div class="card level-card">
+
+                    <p class="small-text">
+                        CURRENT LEVEL
+                    </p>
+
+                    <h2>
+                        Level
+                        <span id="bigLevel">
+                            1
+                        </span>
+                    </h2>
+
+                    <div class="large-xp-bar">
+
+                        <div
+                            id="largeXp"
+                            class="large-xp-progress"
+                        ></div>
+
+                    </div>
+
+                    <p>
+                        <span id="progressXp">
+                            0
+                        </span>
+                        / 100 XP
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================= TASK MODAL ================= -->
+
+<div
+    class="modal-overlay"
+    id="taskModal"
+>
+
+    <div class="modal">
+
+        <button
+            class="close-btn"
+            onclick="closeTaskModal()"
+        >
+            ×
+        </button>
+
+        <p class="small-text">
+            NEW TASK
+        </p>
+
+        <h2>
+            Create a Task
+        </h2>
+
+
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="What needs to be done?"
+        >
+
+
+        <select id="priorityInput">
+
+            <option value="low">
+                Low Priority
+            </option>
+
+            <option value="medium">
+                Medium Priority
+            </option>
+
+            <option value="high">
+                High Priority
+            </option>
+
+        </select>
+
+
+        <button
+            class="primary-btn full-btn"
+            onclick="addTask()"
+        >
+            Create Task
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TOAST ================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    Task completed! +10 XP ⭐
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
